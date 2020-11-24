@@ -11,7 +11,7 @@ expressSanitizer = require("express-sanitizer"),
 
 // APP CONFIG
 // mongoose.connect("mongodb://localhost/restful_blog_app");
-mongoose.connect("mongodb+srv://dbUser:dbUserPassword@cluster0.mdwwe.mongodb.net/Cluster0?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://dbUser:dbUserPassword@cluster0.mdwwe.mongodb.net/Cluster0?retryWrites=true&w=majority");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(expressSanitizer());
