@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Blog App </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+    <!-- <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Ranchers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+</head>
+<body>
+	<div class="ui fixed inverted menu">
+		<div class="ui container">
+			<div class="header item head"><i class="clipboard icon"></i>Blog </div>
+			<a href="/" class="item"><i class="home icon"></i>Home</a>
+			<a href="/blogs/new" class="item"><i class="plus icon"></i>New Post</a>
+		<div class="right menu">
+			<% if(!currentUser){ %>
+				<a href="/login" class="ui item"><i class="user icon"></i>Login</a>
+				<a href="/register" class="ui item"><i class="user plus icon"></i>Sign Up</a>
+			<% } else { %>
+				<a href="#" class="ui item">Signed In as <strong><%=currentUser.username%></strong></a>
+				<a href="/logout" class="ui item"><i class="sign out alternate icon"></i>Logout</a>
+			<% } %>
+		</div>
+	</div>
+	</div>
+	<div class="ui main text container segment">
+		<div class="ui huge header"><%= blog.title %></div>
+		<div class="field">
+			<label>By <%= blog.author %></label>
+		</div>
+		<div class="ui top attached">
+			<div class="item">
+				<img class="ui centered rounded image" src = "<%= blog.image %>">
+				<div class="content">
+					<span><%= blog.created.toDateString() %></span>
+				</div>
+				<div class="description">
+					<p>
+						<%- blog.body %>
+					</p>
+				</div>
+				<hr>
+				<% if(!currentUser){%>
+					<span></span>
+				<% }else if(currentUser.username==blog.author){ %>
+					<form id="delete" action="/blogs/<%= blog._id %>?_method=DELETE" method = "POST">
+						<button class="ui inverted red button">Delete</button>
+					</form>
+				<% } %>
+			</div>
+		</div>
+		<p>
+		<div class="ui comments">
+			<h3 class="ui dividing header">Comments</h3>
+				<% blog.comments.forEach(function(comment){ %>
+				<div class="comment">
+					<strong><%=comment.author%></strong>
+					<p><%=comment.text%></p>
+				</div>
+				<%});%>
+				<div class="right menu">
+					<a style="margin-left: 74%" class="ui primary button" href="/blogs/<%=blog._id%>/comments/new">Add New Comment</a>
+				</div>
+			</div>
+		</p>
+	</div>
+</body>
+</html>

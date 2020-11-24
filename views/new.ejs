@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Blog App </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Ranchers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+</head>
+<body>
+	<div class="ui fixed inverted menu">
+		<div class="ui container">
+			<div class="header item head"><i class="clipboard icon"></i>Blog </div>
+			<a href="/" class="item"><i class="home icon"></i>Home</a>
+			<a href="/blogs/new" class="item"><i class="plus icon"></i>New Post</a>
+			<div class="right menu">
+			<% if(!currentUser){ %>
+				<a href="/login" class="ui item"><i class="user icon"></i>Login</a>
+				<a href="/register" class="ui item"><i class="user plus icon"></i>Sign Up</a>
+			<% } else { %>
+				<a href="#" class="ui item">Signed In as <strong><%=currentUser.username%></strong></a>
+				<a href="/logout" class="ui item"><i class="sign out alternate icon"></i>Logout</a>
+			<% } %>
+		</div>
+		</div>
+	</div>
+	<div class="ui main text container segment">
+		<div class="ui huge header"> New Blog </div>
+		<form class="ui form" action="/blogs" method="POST">
+			<div class="field">
+				<label>Title</label>
+				<input type="text" name="blog[title]" placeholder="Title" required>
+			</div>
+			<div class="field">
+				<label>Image</label>
+				<input type="text" name="blog[image]" placeholder="Image" required>
+			</div>
+			<div class="field">
+				<label>Blog Content</label>
+				<textarea name="blog[body]"></textarea>
+			</div>
+			<div class="field">
+				<label>Author</label>
+				<input type="text" name="blog[author]" value = "<%=currentUser.username%>" required>
+			</div>
+			<input class="ui inverted secondary button" type="submit">
+		</form>
+	</div>
+</body>
+</html>

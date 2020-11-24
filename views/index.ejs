@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Blog </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Ranchers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+</head>
+<body>
+	<div class="ui fixed inverted menu">
+		<div class="ui container">
+			<div class="header item head"><i class="clipboard icon"></i>Blog </div>
+			<a href="/" class="item"><i class="home icon"></i>Home</a>
+			<a href="/blogs/new" class="item"><i class="plus icon"></i>New Post</a>
+			<div class="right menu">
+			<% if(!currentUser){ %>
+				<a href="/login" class="ui item"><i class="user icon"></i>Login</a>
+				<a href="/register" class="ui item"><i class="user plus icon"></i>Sign Up</a>
+			<% } else { %>
+				<a href="#" class="ui item">Signed In as <strong><%=currentUser.username%></strong></a>
+				<a href="/logout" class="ui item"><i class="sign out alternate icon"></i>Logout</a>
+			<% } %>
+			</div>
+		</div>
+	</div>
+	<div class="ui main text container">
+		<div class="ui huge header head">Blog</div>
+		<div class="ui top attached segment">
+			<div class = "ui divided items">
+				<% blogs.forEach(function(blog){ %>
+					<div class="item">
+						<div class="image">
+							<img src = "<%= blog.image %>">
+						</div>
+						<div class="content">
+							<a class="header" href="/blogs/<%= blog._id %>"><%= blog.title %></a>
+							<div class="meta">
+								<span><%= blog.created.toDateString() %></span>
+							</div>
+							<div class="description">
+								<p>
+									<%- blog.body.substring(0, 100) %>...
+						        </p>
+							</div>
+							<div class="extra">
+								<a class="ui inverted olive button" href="/blogs/<%= blog._id %>">
+									Read More
+									<i class="right chevron icon"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+	            <% }); %>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
