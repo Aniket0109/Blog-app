@@ -9,6 +9,9 @@ expressSanitizer = require("express-sanitizer"),
             User = require("./models/user"),
       bodyParser = require("body-parser");
 
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+
 // APP CONFIG
 // mongoose.connect("mongodb://localhost/restful_blog_app");
 mongoose.connect("mongodb+srv://aniket:aniket@blogs.bwc72.mongodb.net/blogs?retryWrites=true&w=majority", {useUnifiedTopology: true, useNewUrlParser: true}).then(() => console.log("Connected to db...")).catch(console.log);
@@ -34,10 +37,17 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model("Blog", blogSchema);
 
-app.use(require("express-session")({
-	secret : "New Delhi is the Capital of India",
-	resave : false,
-	saveUninitialized : false
+// app.use(require("express-session")({
+// 	secret : "New Delhi is the Capital of India",
+// 	resave : false,
+// 	saveUninitialized : false
+// }));
+
+app.use(session({
+    store: new FileStore({}),
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
