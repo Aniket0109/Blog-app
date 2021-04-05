@@ -9,6 +9,10 @@ expressSanitizer = require("express-sanitizer"),
             User = require("./models/user"),
       bodyParser = require("body-parser");
 
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+
 // var session = require('express-session');
 // var FileStore = require('session-file-store')(session);
 
@@ -38,9 +42,8 @@ var blogSchema = new mongoose.Schema({
 var Blog = mongoose.model("Blog", blogSchema);
 
 app.use(session({
-	secret : process.env.SESSION_SECRET,
-	resave : false,
-	saveUninitialized : true
+	secret: 'foo',
+    store: new MongoStore(options)
 }));
 
 // app.use(session({
