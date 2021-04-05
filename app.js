@@ -37,10 +37,10 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model("Blog", blogSchema);
 
-app.use(require("express-session")({
-	secret : "New Delhi is the Capital of India",
+app.use(session({
+	secret : process.env.SESSION_SECRET,
 	resave : false,
-	saveUninitialized : false
+	saveUninitialized : true
 }));
 
 // app.use(session({
