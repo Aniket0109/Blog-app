@@ -9,12 +9,12 @@ expressSanitizer = require("express-sanitizer"),
             User = require("./models/user"),
       bodyParser = require("body-parser");
 
-var session = require('express-session');
-var FileStore = require('session-file-store')(session);
+// var session = require('express-session');
+// var FileStore = require('session-file-store')(session);
 
 // APP CONFIG
-// mongoose.connect("mongodb://localhost/restful_blog_app");
-mongoose.connect("mongodb+srv://aniket:aniket@blogs.bwc72.mongodb.net/blogs?retryWrites=true&w=majority", {useUnifiedTopology: true, useNewUrlParser: true}).then(() => console.log("Connected to db...")).catch(console.log);
+mongoose.connect("mongodb://localhost/restful_blog_app",{useNewUrlParser:true , useUnifiedTopology: true});
+// mongoose.connect("mongodb+srv://aniket:aniket@blogs.bwc72.mongodb.net/blogs?retryWrites=true&w=majority", {useUnifiedTopology: true, useNewUrlParser: true}).then(() => console.log("Connected to db...")).catch(console.log);
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(expressSanitizer());
@@ -37,18 +37,18 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model("Blog", blogSchema);
 
-// app.use(require("express-session")({
-// 	secret : "New Delhi is the Capital of India",
-// 	resave : false,
-// 	saveUninitialized : false
-// }));
-
-app.use(session({
-    store: new FileStore({}),
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+app.use(require("express-session")({
+	secret : "New Delhi is the Capital of India",
+	resave : false,
+	saveUninitialized : false
 }));
+
+// app.use(session({
+//     store: new FileStore({}),
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: false
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -104,28 +104,6 @@ app.get("/blogs/:id" , function(req, res){
 		}
 	});
 });
-// EDIT ROUTE
-// app.get("/blogs/:id/edit", function(req, res){
-// 	Blog.findById(req.params.id, function(err, foundBlog){
-// 		if (err) {
-// 			res.redirect("/blogs");
-// 		} else {
-// 			res.render("edit", {blog: foundBlog});
-// 		}
-// 	});
-// });
-
-// UPDATE ROUTE
-// app.put("/blgs/:id", function(req, res){
-// 	req.body.blog.body = req.sanitize(req.body.blog.body);
-// 	Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedBlog){
-// 		if (err) {
-// 			res.redirect("/blogs");
-// 		} else {
-// 			res.redirect("/blogs/"+ req.params.id);
-// 		}
-// 	});
-// });
 
 // DELETE ROUTE
 app.delete("/blogs/:id", function(req, res){
