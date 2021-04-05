@@ -41,10 +41,26 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model("Blog", blogSchema);
 
+//-momery unleaked---------
+app.set('trust proxy', 1);
+
 app.use(session({
-	secret: 'foo',
-    store: new MongoStore(options)
+cookie:{
+    secure: true,
+    maxAge:60000
+       },
+store: new RedisStore(),
+secret: 'secret',
+saveUninitialized: true,
+resave: false
 }));
+
+app.use(function(req,res,next){
+if(!req.session){
+    return next(new Error('Oh no')) //handle error
+}
+next() //otherwise continue
+});
 
 // app.use(session({
 //     store: new FileStore({}),
