@@ -8,8 +8,7 @@ expressSanitizer = require("express-sanitizer"),
          Comment = require("./models/comment"),
             User = require("./models/user"),
       bodyParser = require("body-parser");
-
-// var session = require('express-session');
+     var session = require('express-session');
 // var FileStore = require('session-file-store')(session);
 
 // APP CONFIG
