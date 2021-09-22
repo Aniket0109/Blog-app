@@ -12,8 +12,8 @@ expressSanitizer = require("express-sanitizer"),
 // var FileStore = require('session-file-store')(session);
 
 // APP CONFIG
-// mongoose.connect("mongodb://localhost/restful_blog_app",{useNewUrlParser:true , useUnifiedTopology: true});
-mongoose.connect("mongodb+srv://aniket:aniket@blogs.bwc72.mongodb.net/blogs?retryWrites=true&w=majority", {useUnifiedTopology: true, useNewUrlParser: true}).then(() => console.log("Connected to db...")).catch(console.log);
+mongoose.connect("mongodb://localhost/restful_blog_app",{useNewUrlParser:true , useUnifiedTopology: true});
+// mongoose.connect("mongodb+srv://aniket:aniket@blogs.bwc72.mongodb.net/blogs?retryWrites=true&w=majority", {useUnifiedTopology: true, useNewUrlParser: true}).then(() => console.log("Connected to db...")).catch(console.log);
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(expressSanitizer());
@@ -196,6 +196,6 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 }
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3000, function(){
 	console.log("SERVER IS RUNNING!!!");
 });	
