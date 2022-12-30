@@ -17,8 +17,6 @@ mongoose.connect("mongodb+srv://aniket:aniket@blog-site.xqnsf.mongodb.net/?retry
 {	
 	useNewUrlParser: true, 
 	useUnifiedTopology: true, 
-	useCreateIndex: true, 
-	useFindAndModify: false
 });
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended : true}));
